@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* "Monsoon night ops" palette mapped onto shadcn tokens */
+    --background: 222 48% 5%;        /* #070B14 */
+    --foreground: 215 52% 94%;       /* #E6EDF7 */
+    --card: 218 45% 9%;              /* #0C1320 */
+    --card-foreground: 215 52% 94%;
+    --popover: 218 45% 10%;
+    --popover-foreground: 215 52% 94%;
+    --primary: 191 86% 58%;          /* #38D0F0 cyan: AI outputs */
+    --primary-foreground: 205 70% 7%;
+    --secondary: 218 38% 13%;
+    --secondary-foreground: 215 52% 94%;
+    --muted: 218 38% 12%;
+    --muted-foreground: 216 23% 63%; /* #8A9BB5 */
+    --accent: 218 36% 16%;
+    --accent-foreground: 215 52% 94%;
+    --destructive: 1 86% 59%;        /* #F0413B */
+    --destructive-foreground: 0 0% 100%;
+    --border: 218 33% 16%;           /* #1C2638 */
+    --input: 218 33% 19%;
+    --ring: 191 86% 58%;
+    --radius: 10px;
+  }
+  * { @apply border-border; }
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    overflow: hidden;
+  }
+  .num { font-family: 'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  ::selection { background: hsl(191 86% 58% / 0.3); }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #1C2638; border-radius: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+}
+
+/* Recording mode: hide idle cursor, silence tooltips */
+body.rec-idle, body.rec-idle * { cursor: none !important; }
+body.recording [data-radix-popper-content-wrapper]:has([role="tooltip"]) { display: none !important; }
+
+@keyframes onset-pulse { 0% { transform: scale(0.9); opacity: 0.9 } 100% { transform: scale(1.6); opacity: 0 } }
+@keyframes node-pulse { 0% { box-shadow: 0 0 0 0 rgba(56,208,240,.45) } 100% { box-shadow: 0 0 0 10px rgba(56,208,240,0) } }
+.node-active { animation: node-pulse 900ms ease-out; border-color: #38D0F0 !important; }
+@keyframes flow { to { stroke-dashoffset: -16 } }
+.flow-line { stroke-dasharray: 4 4; animation: flow 800ms linear infinite; }
+@keyframes shimmer { 0% { opacity: .45 } 50% { opacity: .7 } 100% { opacity: .45 } }
+.skeleton { animation: shimmer 1.6s ease-in-out infinite; background: #131C2C; }
